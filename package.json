@@ -1,0 +1,25 @@
+{
+  "name": "ai-travel-planner",
+  "version": "1.0.0",
+  "description": "가고 싶은 여행지를 입력하면 AI가 관련 취향 여행지 2곳과 예상 예산을 추천하고 비회원 피드백을 저장하는 웹 서비스",
+  "type": "module",
+  "scripts": {
+    "start": "node dev-server.js",
+    "dev": "vercel dev",
+    "check": "node -e \"console.log('Syntax check passed')\""
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
+    "dotenv": "^16.4.7",
+    "openai": "^4.85.4"
+  },
+  "keywords": [
+    "ai",
+    "travel-planner",
+    "openai",
+    "supabase",
+    "vercel"
+  ],
+  "author": "",
+  "license": "MIT"
+}
