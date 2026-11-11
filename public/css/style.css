@@ -1,0 +1,705 @@
+/* ==============================================================================
+   AI Travel Planner — 통합 스타일시트 (style.css)
+   - 모바일, 태블릿, 데스크톱 반응형 지원
+   - 웹 접근성(고대비, 키보드 포커스, 스크린리더) 준수
+   - 원본 필름 이미지 비율(1.582:1) 보존 및 왜곡 없는 렌더링
+   ============================================================================== */
+
+/* --- 1. 디자인 시스템 토큰 (CSS 변수) --- */
+:root {
+  /* 색상 팔레트: 바다와 모래사장, 하늘에서 영감을 받은 차분하고 감성적인 톤 */
+  --color-primary: #1e5a84;          /* 신뢰감을 주는 딥 오션 블루 */
+  --color-primary-hover: #154262;    /* 버튼 호버 시 짙은 블루 */
+  --color-primary-light: #e8f2f8;    /* 연한 블루 배경 강조 */
+  
+  --color-secondary: #2b7a78;        /* 청록색 (피드백 등 보조 강조) */
+  --color-secondary-hover: #1f5a58;
+  
+  --color-accent-gold: #d48c34;      /* 1순위 추천 배지 강조 골드 */
+  --color-accent-silver: #64748b;    /* 2순위 추천 배지 슬레이트 */
+  
+  --color-bg-base: #f8fafc;          /* 전체 배경 (부드러운 중성색) */
+  --color-bg-card: #ffffff;          /* 카드 및 모달 흰색 배경 */
+  --color-bg-subtle: #f1f5f9;        /* 옅은 회색 배경 */
+  
+  --color-text-main: #1e293b;        /* 본문 텍스트 (다크 슬레이트) */
+  --color-text-muted: #64748b;       /* 보조 텍스트 (미디엄 그레이) */
+  --color-text-light: #94a3b8;       /* 캡션 및 연한 텍스트 */
+  
+  --color-border: #e2e8f0;           /* 테두리 색상 */
+  --color-border-focus: #3b82f6;     /* 포커스 링 색상 */
+  
+  --color-success: #059669;          /* 성공 알림 초록 */
+  --color-success-bg: #ecfdf5;
+  --color-error: #dc2626;            /* 에러 알림 빨강 */
+  --color-error-bg: #fef2f2;
+  
+  /* 폰트 및 타이포그래피 */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  
+  /* 그림자 효과 */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  
+  /* 라운딩 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+  
+  /* 전환 애니메이션 */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.25s ease-in-out;
+}
+
+/* --- 2. 기본 리셋 및 전역 스타일 --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg-base);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 스크린리더 전용 숨김 클래스 */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* 전체 앱 레이아웃 컨테이너 */
+.app-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+/* --- 3. 헤더 (Site Header) --- */
+.site-header {
+  text-align: center;
+  padding: 1.5rem 0 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logo-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+.logo-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* --- 4. 히어로 섹션 & 원본 이미지 보존 규칙 --- */
+.hero-section {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.hero-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+}
+
+.hero-description {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+}
+
+/* 원본 이미지 래퍼: 비율 1.582:1을 유지하고 왜곡/크롭 방지 */
+.hero-image-wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  background-color: var(--color-bg-card);
+  padding: 0.75rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 875 / 553; /* 원본 비율 고정 (약 1.582:1) */
+  object-fit: contain;     /* 잘림 없이 원본 프레임 전체 렌더링 */
+  border-radius: var(--radius-md);
+}
+
+.hero-image-caption {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  margin-top: 0.5rem;
+}
+
+/* --- 5. 검색 및 입력 섹션 --- */
+.search-section {
+  background-color: var(--color-bg-card);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 3rem;
+  border: 1px solid var(--color-border);
+}
+
+.search-label {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.75rem;
+}
+
+.search-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .search-input-group {
+    flex-direction: row;
+  }
+}
+
+.search-input {
+  flex: 1;
+  font-size: 1rem;
+  padding: 0.875rem 1.25rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-base);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  background-color: var(--color-bg-card);
+}
+
+.search-hint {
+  font-size: 0.825rem;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+/* 버튼 공통 스타일 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-secondary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* 버튼 로딩 스피너 */
+.btn-spinner {
+  display: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 0.5rem;
+}
+
+.btn.is-loading .btn-spinner {
+  display: inline-block;
+}
+
+/* --- 6. 결과 섹션 (카드 3개 그리드) --- */
+.results-section {
+  margin-bottom: 3.5rem;
+}
+
+.section-title-wrap {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* 카드 3개 그리드 (데스크톱 3열, 태블릿 2열, 모바일 1열) */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* 3번째 카드(예산)는 2열 너비 차지 */
+  .budget-card {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 960px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .budget-card {
+    grid-column: span 1;
+  }
+}
+
+/* 카드 공통 */
+.card {
+  position: relative;
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-badge {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-priority-1 {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.badge-priority-2 {
+  background-color: #e2e8f0;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.badge-budget {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.card-header {
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  line-height: 1.3;
+}
+
+.card-region {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.card-subtitle {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-body-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  line-height: 1.5;
+}
+
+.card-footer {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-border);
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+/* 예산 카드 특화 스타일 */
+.budget-amount-wrap {
+  background-color: var(--color-primary-light);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.budget-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.budget-amount {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-top: 0.25rem;
+}
+
+.budget-list-title {
+  font-size: 0.825rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin-bottom: 0.75rem;
+}
+
+.tag-list li {
+  font-size: 0.75rem;
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.budget-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  font-size: 0.825rem;
+}
+
+.bullet-list {
+  list-style: disc inside;
+  color: var(--color-text-main);
+  padding-left: 0.25rem;
+}
+
+.bullet-list li {
+  margin-bottom: 0.2rem;
+}
+
+.text-success { color: var(--color-success); }
+.text-muted { color: var(--color-text-muted); }
+
+.budget-disclaimer {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--color-text-light);
+}
+
+/* --- 7. 상태 박스 (로딩, 빈 상태, 에러) --- */
+.status-box {
+  background-color: var(--color-bg-card);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.loading-message, .empty-message {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.spinner-large {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+.spinner-small {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-secondary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 0.75rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 알림 박스 (성공 및 에러) */
+.alert {
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+}
+
+.alert-error {
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
+  border: 1px solid #fca5a5;
+}
+
+.alert-success {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+  border: 1px solid #6ee7b7;
+}
+
+/* --- 8. 피드백 폼 섹션 --- */
+.feedback-form-section {
+  background-color: var(--color-bg-card);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: 3.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.text-required {
+  color: var(--color-error);
+}
+
+.feedback-textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-base);
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.feedback-textarea:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(43, 122, 120, 0.2);
+  background-color: var(--color-bg-card);
+}
+
+.textarea-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.privacy-notice {
+  color: var(--color-text-light);
+}
+
+.char-counter {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.form-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* --- 9. 피드백 목록 섹션 --- */
+.feedback-list-section {
+  margin-bottom: 4rem;
+}
+
+.list-header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-refresh {
+  background: none;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-card);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-refresh:hover {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-main);
+}
+
+.feedback-items-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feedback-item {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.feedback-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.feedback-author-badge {
+  font-weight: 600;
+  color: var(--color-secondary);
+  background-color: #f0fdf4;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.feedback-item-content {
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  white-space: pre-wrap; /* 줄바꿈 유지 및 텍스트 안전 출력 */
+  word-break: break-word;
+}
+
+/* --- 10. 푸터 --- */
+.site-footer {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+}
+
+.footer-subtext {
+  font-size: 0.775rem;
+  margin-top: 0.25rem;
+}
+
